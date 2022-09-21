@@ -1,6 +1,6 @@
 #ifndef ULTIMAP2_H
 #define ULTIMAP2_H
-
+#define _NO_CRT_STDIO_INLINE
 #include <ntifs.h>
 
 //MSR's

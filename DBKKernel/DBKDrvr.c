@@ -468,7 +468,7 @@ NTSTATUS DriverEntry(IN PDRIVER_OBJECT DriverObject,
 			cpu_familyID = cpu_familyID + (cpu_ext_familyID << 4);
 
 			vmx_init_dovmcall(1);
-			setup_APIC_BASE(); //for ultimap
+			setup_APIC_BASE(); //for ultimap			ultimap为什么需要APIC？
 
 		}
 		else

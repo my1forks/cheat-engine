@@ -769,7 +769,8 @@ int vmx_causedCurrentDebugBreak()
 	return (int)dovmcall(&vmcallinfo);;
 }
 
-void vmx_init_dovmcall(int isIntel)
+//根据cpu初始化内核函数指针
+void vmx_init_dovmcall(int isIntel)	
 {
 	if (isIntel)
 		(void *)dovmcall=(void *)dovmcall_intel;

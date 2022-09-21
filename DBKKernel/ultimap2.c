@@ -1,5 +1,7 @@
 #pragma warning( disable: 4100 4706)
 
+
+#define _NO_CRT_STDIO_INLINE
 #include <ntifs.h>
 #include <ntddk.h>
 #include <minwindef.h>

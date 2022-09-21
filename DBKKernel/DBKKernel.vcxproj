@@ -233,13 +233,15 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(DDK_LIB_PATH)Ntstrsafe.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/INTEGRITYCHECK %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PostBuildEvent>
-      <Command>"$(WDKBinRoot_x64)\signtool.exe" sign /a /ac "$(TargetDir)..\release\sig\GlobalSign Root CA.crt" /tr http://rfc3161timestamp.globalsign.com/advanced /td SHA256 "$(TargetPath)"</Command>
+      <Command>
+      </Command>
       <Message>sign driver</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -249,6 +251,7 @@
       <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
       <Optimization>Disabled</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
+      <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(DDK_LIB_PATH)ksecdd.lib;$(DDK_LIB_PATH)Ntstrsafe.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -271,6 +274,7 @@ makecab /f "$(ProjectDir)\dbk64.ddf"
       <Optimization>Disabled</Optimization>
       <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
       <IntrinsicFunctions>true</IntrinsicFunctions>
+      <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(DDK_LIB_PATH)Ntstrsafe.lib;%(AdditionalDependencies)</AdditionalDependencies>

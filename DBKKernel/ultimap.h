@@ -1,6 +1,5 @@
 #ifndef ULTIMAP_H
 #define ULTIMAP_H
-
 #include <ntifs.h>
 #include <windef.h>
 

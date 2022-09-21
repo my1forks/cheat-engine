@@ -1,5 +1,6 @@
 #ifndef DBKFUNC_H
 #define DBKFUNC_H
+#define _NO_CRT_STDIO_INLINE
 
 #pragma warning( disable: 4214 )
 
