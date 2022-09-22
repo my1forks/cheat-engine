@@ -1,0 +1,9 @@
+﻿  Building 'DBKKernel' with toolset 'WindowsKernelModeDriver10.0' and the 'Desktop' target platform.
+  Stamping x64\Debug\DBK64.inf
+  Stamping [Version] section with DriverVer=09/22/2022,16.11.49.832
+D:\vs-code\cheat-engine\DBKKernel\DBK64.inf(5-5): warning 1324: [Version] section should specify PnpLockdown=1.
+  DBKDrvr.c
+  DBKKernel.vcxproj -> D:\vs-code\cheat-engine\Cheat Engine\bin\DBK64.sys
+  Done Adding Additional Store
+  Successfully signed: D:\vs-code\cheat-engine\Cheat Engine\bin\DBK64.sys
+  

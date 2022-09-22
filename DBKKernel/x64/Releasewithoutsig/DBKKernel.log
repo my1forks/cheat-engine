@@ -1,0 +1,356 @@
+﻿  Building 'DBKKernel' with toolset 'WindowsKernelModeDriver10.0' and the 'Desktop' target platform.
+  Stamping x64\Releasewithoutsig\DBK64.inf
+  Stamping [Version] section with DriverVer=09/21/2022,22.27.29.795
+D:\vs-code\cheat-engine\DBKKernel\DBK64.inf(5-5): warning 1324: [Version] section should specify PnpLockdown=1.
+  Assembling amd64\dbkfunca.asm...
+  Assembling amd64\debuggera.asm...
+  Assembling amd64\noexceptionsa.asm...
+  Assembling amd64\ultimapa.asm...
+  Assembling amd64\vmxhelpera.asm...
+  Assembling amd64\vmxoffloada.asm...
+  DBKDrvr.c
+  DBKFunc.c
+  debugger.c
+  deepkernel.c
+  interruptHook.c
+  IOPLDispatcher.c
+  memscan.c
+  noexceptions.c
+  processlist.c
+  threads.c
+  ultimap.c
+  ultimap2.c
+D:\vs-code\cheat-engine\DBKKernel\ultimap2.c(1362,3): warning C4996: 'wcsncpy': This function or variable may be unsafe. Consider using wcsncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  apic.c
+  vmxhelper.c
+  vmxoffload.c
+  正在生成代码...
+  DBKKernel.vcxproj -> D:\vs-code\cheat-engine\Cheat Engine\bin\DBK64.sys
+  
+  The following certificates were considered:
+      Issued to:  
+  
+      Issued by: thawte SHA256 Code Signing CA
+  
+      Expires:   Wed Dec 30 07:59:59 2015
+  
+      SHA1 hash: FE6885F629D920DCE90FB03F0DB7B95709811C0D
+  
+  
+      Issued to: Beijing Chunbai Technology Development Co., Ltd
+  
+      Issued by: VeriSign Class 3 Code Signing 2010 CA
+  
+      Expires:   Wed Jun 19 07:59:59 2013
+  
+      SHA1 hash: F981DB345F885899FAE9382D7D3BCAF75B1CE797
+  
+  
+      Issued to: SHA2
+  
+      Issued by: TrustAsia SHA2 Code Signing CA
+  
+      Expires:   Wed Jan 29 13:43:00 2020
+  
+      SHA1 hash: DF8CE8056D3AF33563218DA5C539B2BBB508EFF4
+  
+  
+      Issued to: Beijing JoinHope Image Technology Ltd.
+  
+      Issued by: VeriSign Class 3 Code Signing 2010 CA
+  
+      Expires:   Sun May 17 07:59:59 2015
+  
+      SHA1 hash: DF788AA00EB400B552923518108EB1D4F5B7176B
+  
+  
+      Issued to: Shenzhen Luyoudashi Technology Co., Ltd.
+  
+      Issued by: VeriSign Class 3 Code Signing 2010 CA
+  
+      Expires:   Thu May 07 07:59:59 2015
+  
+      SHA1 hash: D715230B535C8937B469632EC6158761FD18AD21
+  
+  
+      Issued to: Shenzhen yundian Technology Co., Ltd
+  
+      Issued by: Thawte Code Signing CA - G2
+  
+      Expires:   Wed May 21 07:59:59 2014
+  
+      SHA1 hash: D36A5F40D62A4CCB0CFF098D0BBFAA30257D487D
+  
+  
+      Issued to: Fuqing Yuntan Network Tech Co.,Ltd.
+  
+      Issued by: VeriSign Class 3 Code Signing 2010 CA
+  
+      Expires:   Thu Apr 10 07:59:59 2014
+  
+      SHA1 hash: C61A221389C98EE2FBC0E57A62DEE5A915E6C509
+  
+  
+      Issued to: Jeromin Cody Eric
+  
+      Issued by: Sectigo RSA Code Signing CA
+  
+      Expires:   Thu Apr 29 07:59:59 2021
+  
+      SHA1 hash: B8E07FDD75785C547231755F605FDF318DB42287
+  
+  
+      Issued to: Luca Marcone
+  
+      Issued by: Certum Code Signing CA
+  
+      Expires:   Wed Dec 30 22:06:53 2015
+  
+      SHA1 hash: B7C646E3A433986E165BA45B209DA4A2C4111939
+  
+  
+      Issued to: Henan Pushitong Intelligent  Technology Co., Ltd.
+  
+      Issued by: VeriSign Class 3 Code Signing 2010 CA
+  
+      Expires:   Sun Oct 14 07:59:59 2018
+  
+      SHA1 hash: B383EE03B601B5DDFAEA2619DE0A525F385BA1E3
+  
+  
+      Issued to: HT Srl
+  
+      Issued by: VeriSign Class 3 Code Signing 2010 CA
+  
+      Expires:   Sun Aug 05 07:59:59 2012
+  
+      SHA1 hash: B366DBE8B3E81915CA5C5170C65DCAD8348B11F0
+  
+  
+      Issued to: Bopsoft
+  
+      Issued by: thawte SHA256 Code Signing CA
+  
+      Expires:   Fri Nov 23 07:59:59 2018
+  
+      SHA1 hash: B111E6E7590296884968201AD0DBA8FB19D01F17
+  
+  
+      Issued to: Xinyi Electronic Technology (Shanghai) Co., Ltd.
+  
+      Issued by: VeriSign Class 3 Code Signing 2010 CA
+  
+      Expires:   Sun Nov 23 07:59:59 2014
+  
+      SHA1 hash: 992D09CCC404FE070E6759B86C13D7D56587556A
+  
+  
+      Issued to: Baoji zhihengtaiye co.,ltd
+  
+      Issued by: VeriSign Class 3 Code Signing 2010 CA
+  
+      Expires:   Sat Jun 14 07:59:59 2014
+  
+      SHA1 hash: 864FD20B322E8C7CDB0D7AA69C8475F09D602C3D
+  
+  
+      Issued to: Jiangsu innovation safety assessment Co., Ltd.
+  
+      Issued by: VeriSign Class 3 Code Signing 2010 CA
+  
+      Expires:   Sat Jun 14 07:59:59 2014
+  
+      SHA1 hash: 85C58500333C98954160FCA3EE9A26B659A5F451
+  
+  
+      Issued to: Beijing Founder Apabi Technology Limited
+  
+      Issued by: DigiCert SHA2 Assured ID Code Signing CA
+  
+      Expires:   Wed May 29 20:00:00 2019
+  
+      SHA1 hash: 8564928AA4FBC4BBECF65B402503B2BE3DC60D4D
+  
+  
+      Issued to: Zhuhai liancheng Technology Co., Ltd.
+  
+      Issued by: VeriSign Class 3 Code Signing 2010 CA
+  
+      Expires:   Wed Feb 05 07:59:59 2014
+  
+      SHA1 hash: 7B69FF55D3C39BD7D67A10F341C1443425F0C83F
+  
+  
+      Issued to: Niki Sokolov
+  
+      Issued by: Sectigo RSA Code Signing CA
+  
+      Expires:   Fri Apr 08 07:59:59 2022
+  
+      SHA1 hash: 7A9B96AF7191B323A68AD8EF7974624990AFBC46
+  
+  
+      Issued to: NHN USA Inc.
+  
+      Issued by: Thawte Code Signing CA
+  
+      Expires:   Sat Oct 29 07:59:59 2011
+  
+      SHA1 hash: 775141B89F48B71DADC19F13011A46E537E7029C
+  
+  
+      Issued to: 
+  
+      Issued by: Thawte Code Signing CA - G2
+  
+      Expires:   Mon Aug 13 07:59:59 2018
+  
+      SHA1 hash: 71C529AB5A924E223C1D92AEDCF3D9A304D59F42
+  
+  
+      Issued to: HT Srl
+  
+      Issued by: VeriSign Class 3 Code Signing 2009-2 CA
+  
+      Expires:   Sun Jul 31 07:59:59 2011
+  
+      SHA1 hash: 6C5886C0DA723E8B2AEC8C02392D4B175E793EBE
+  
+  
+      Issued to: 
+  
+      Issued by: WoSign Class 3 Code Signing CA
+  
+      Expires:   Wed May 06 12:06:20 2015
+  
+      SHA1 hash: 6BC9649368643760190234FBB8395F4CACC2C9CB
+  
+  
+      Issued to: Realtek Semiconductor Corp
+  
+      Issued by: VeriSign Class 3 Code Signing 2004 CA
+  
+      Expires:   Sat Jun 12 07:59:59 2010
+  
+      SHA1 hash: 6841393D9A1D09C9F5C639C0C714FB42ADDD7DD2
+  
+  
+      Issued to: Handan City Congtai District LiKang  Daily Goods Department
+  
+      Issued by: Thawte Code Signing CA - G2
+  
+      Expires:   Sun Jun 29 07:59:59 2014
+  
+      SHA1 hash: 62C51F2D2370FF725B6F06CFC50543B20E14F126
+  
+  
+      Issued to: NVIDIA Corporation
+  
+      Issued by: VeriSign Class 3 Code Signing 2010 CA
+  
+      Expires:   Tue Sep 02 07:59:59 2014
+  
+      SHA1 hash: 579AEC4489A2CA8A2A09DF5DC0323634BD8B16B7
+  
+  
+      Issued to: WDKTestCert asdf,132702346426590064
+  
+      Issued by: WDKTestCert asdf,132702346426590064
+  
+      Expires:   Wed Jul 09 08:00:00 2031
+  
+      SHA1 hash: 495E562ECB2FD45A05EE98CA9B5929B559857CA5
+  
+  
+      Issued to: 
+  
+      Issued by: TrustAsia Code Signing CA
+  
+      Expires:   Wed Jan 29 13:39:00 2020
+  
+      SHA1 hash: 33354ACBB6E113E4D18B0FA6A3DE54A9A6DD9F9F
+  
+  
+      Issued to: 
+  
+      Issued by: VeriSign Class 3 Code Signing 2010 CA
+  
+      Expires:   Fri Mar 23 07:59:59 2012
+  
+      SHA1 hash: 31E5380E1E0E1DD841F0C1741B38556B252E6231
+  
+  
+      Issued to: NVIDIA Corporation
+  
+      Issued by: VeriSign Class 3 Code Signing 2010 CA
+  
+      Expires:   Fri Jul 27 07:59:59 2018
+  
+      SHA1 hash: 30632EA310114105969D0BDA28FDCE267104754F
+  
+  
+      Issued to: Open Source Developer, William Zoltan
+  
+      Issued by: Certum Level III CA
+  
+      Expires:   Tue Jan 19 15:31:30 2016
+  
+      SHA1 hash: 2A1DA6DC8635E6C725CCCBE6C035EEC813FBEB2E
+  
+  
+      Issued to: Nanjing Zhixiao Information Technology Co.,Ltd
+  
+      Issued by: VeriSign Class 3 Code Signing 2010 CA
+  
+      Expires:   Sat Nov 15 07:59:59 2014
+  
+      SHA1 hash: 1155CF31B9A722F1A60868FF179E4F9F5306B62B
+  
+  
+      Issued to: Binzhoushi Yongyu Feed Co.,LTd.
+  
+      Issued by: Thawte Code Signing CA - G2
+  
+      Expires:   Mon Jan 18 07:59:59 2016
+  
+      SHA1 hash: 07E871B66C69F35AE4A3C7D3AD5C44F3497807A1
+  
+  
+      Issued to: Beijing Kate Zhanhong Technology Co.,Ltd.
+  
+      Issued by: Thawte Code Signing CA - G2
+  
+      Expires:   Sat Nov 29 07:59:59 2014
+  
+      SHA1 hash: 02A8DC8B4AEAD80E77B333D61E35B40FBBB010A0
+  
+  
+  After EKU filter, 33 certs were left.
+  After expiry filter, 1 certs were left.
+  After Hash filter, 1 certs were left.
+  After Private Key filter, 1 certs were left.
+  The following certificate was selected:
+      Issued to: WDKTestCert asdf,132702346426590064
+  
+      Issued by: WDKTestCert asdf,132702346426590064
+  
+      Expires:   Wed Jul 09 08:00:00 2031
+  
+      SHA1 hash: 495E562ECB2FD45A05EE98CA9B5929B559857CA5
+  
+  
+  Done Adding Additional Store
+  Successfully signed: D:\vs-code\cheat-engine\Cheat Engine\bin\DBK64.sys
+  
+  
+  Number of files successfully Signed: 1
+  
+  Number of warnings: 0
+  
+  Number of errors: 0
+  
+  Sign the CE driver
+EXEC : error information: "CryptQueryObject" (-2147024893/0x80070003)
+EXEC : SignTool error : An unexpected internal error has occurred.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets(155,5): error MSB3073: 命令“"C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x64\signtool.exe" sign /a /ac "D:\vs-code\cheat-engine\Cheat Engine\bin\..\release\sig\GlobalSign Root CA.crt" /tr http://rfc3161timestamp.globalsign.com/advanced /td SHA256 "D:\vs-code\cheat-engine\Cheat Engine\bin\DBK64.sys"
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets(155,5): error MSB3073: :VCEnd”已退出，代码为 1。
