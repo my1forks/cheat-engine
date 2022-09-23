@@ -18,7 +18,7 @@ unsigned char publicKey[]={0x45, 0x43, 0x53, 0x35, 0x42, 0x00, 0x00, 0x00, 0x00,
 NTSYSAPI NTSTATUS NTAPI ZwQueryInformationProcess(IN HANDLE ProcessHandle, IN PROCESSINFOCLASS ProcessInformationClass, OUT PVOID ProcessInformation, IN ULONG ProcessInformationLength, OUT PULONG ReturnLength OPTIONAL);
 NTSYSAPI NTSTATUS NTAPI ZwQueryInformationThread(IN HANDLE ThreadHandle, IN THREADINFOCLASS ThreadInformationClass, OUT PVOID ThreadInformation, IN ULONG ThreadInformationLength, OUT PULONG ReturnLength OPTIONAL);
 
-
+static UNICODE_STRING DevicePrefix = RTL_CONSTANT_STRING(L"\\Device\\HarddiskVolume");
 NTSTATUS LoadFile(PUNICODE_STRING filename, PVOID *buffer, DWORD *size)
 /*
 Loads the specified file into paged memory
@@ -35,9 +35,36 @@ Caller is responsible for calling ExFreePool on the buffer
 	FILE_STANDARD_INFORMATION fsi;
 	IO_STATUS_BLOCK statusblock;
 	NTSTATUS s=STATUS_UNSUCCESSFUL;	
+	PFILE_OBJECT FileObject;
+	PDEVICE_OBJECT DeviceObject;
+	UNICODE_STRING Dos;
+	
+	if (RtlPrefixUnicodeString(&DevicePrefix, filename, 1)) {
+		DbgPrintEx(DPFLTR_DEFAULT_ID, DPFLTR_ERROR_LEVEL, "[+] RtlPrefixUnicodeString return true\n");
+
+		//有0xC0000043独占问题
+		s = IoGetDeviceObjectPointer(filename, FILE_ALL_ACCESS, &FileObject, &DeviceObject);
+		if (!NT_SUCCESS(s)) {
+			DbgPrintEx(DPFLTR_DEFAULT_ID, DPFLTR_ERROR_LEVEL, "[+] IoGetDeviceObjectPointer return %x\n", s);
+			return s;
+		}
+		NT_ASSERT(DeviceObject->DeviceType == FILE_DEVICE_DISK);
+		s = IoVolumeDeviceToDosName(DeviceObject, &Dos);
+		if (!NT_SUCCESS(s)) {
+			DbgPrintEx(DPFLTR_DEFAULT_ID, DPFLTR_ERROR_LEVEL, "[+] IoVolumeDeviceToDosName return %x\n", s);
+			return s;
+		}
+		else
+		{
+			DbgPrintEx(DPFLTR_DEFAULT_ID, DPFLTR_ERROR_LEVEL, "[+] DosName %wZ\n", Dos);
+		}
+
+	}
 
 	InitializeObjectAttributes(&oa, filename, 0, NULL, NULL);
 	s=ZwCreateFile(&hFile,SYNCHRONIZE|STANDARD_RIGHTS_READ , &oa, &statusblock, NULL, FILE_SYNCHRONOUS_IO_NONALERT| FILE_ATTRIBUTE_NORMAL, 0, FILE_OPEN, 0, NULL, 0);
+	
+	DbgPrintEx(DPFLTR_DEFAULT_ID, DPFLTR_ERROR_LEVEL, "[+] ZwCreateFile return status %x\n", s);
 
 	if (s==STATUS_SUCCESS)
 	{	
@@ -237,7 +264,7 @@ NTSTATUS TestProcess(PIMAGE_DOS_HEADER buf, DWORD size)
 	return STATUS_UNSUCCESSFUL;
 }
 
-NTSTATUS CheckSignatureOfFile(PUNICODE_STRING originalpath, BOOL isProcess)
+NTSTATUS CheckSignatureOfFile(PUNICODE_STRING /*\Device\HarddiskVolumeX*/originalpath, BOOL isProcess)
 {
 	NTSTATUS s=STATUS_UNSUCCESSFUL;
 	PVOID file=NULL;
@@ -253,6 +280,8 @@ NTSTATUS CheckSignatureOfFile(PUNICODE_STRING originalpath, BOOL isProcess)
 	DbgPrint("CheckSignatureOfFile: ");
 
 
+	DbgPrintEx(DPFLTR_DEFAULT_ID, DPFLTR_ERROR_LEVEL, "[+] originalpath %wZ\n", originalpath);
+
 
 	p.Buffer=MyBuffer;
 	p.Length=0;
@@ -266,14 +295,18 @@ NTSTATUS CheckSignatureOfFile(PUNICODE_STRING originalpath, BOOL isProcess)
 	
 
 
-	s=LoadFile(path, &file, &filesize);
+	s=LoadFile(path, &file, &filesize);	//将文件读入内存
+
 	if (s==STATUS_SUCCESS)
 	{
 
 		s=RtlAppendUnicodeToString(path, L".sig");
 		if (s==STATUS_SUCCESS)
 		{
+			DbgPrintEx(DPFLTR_DEFAULT_ID, DPFLTR_ERROR_LEVEL, "[+] sig path %wZ\n", path);
+
 			s=LoadFile(path, &sig, &sigsize);	
+			//DbgPrint("sig path %wZ\n", s);
 
 			if (s==STATUS_SUCCESS)
 			{
@@ -298,7 +331,8 @@ NTSTATUS CheckSignatureOfFile(PUNICODE_STRING originalpath, BOOL isProcess)
 }
 
 
-
+NTKERNELAPI
+UCHAR* PsGetProcessImageFileName(__in PEPROCESS Process);
 NTSTATUS SecurityCheck(void)
 /*
 Checks the current process for a valid signature
@@ -313,9 +347,34 @@ Checks the current process for a valid signature
 	if (KeGetCurrentIrql() != PASSIVE_LEVEL)
 		return STATUS_UNSUCCESSFUL;
 
+	//
 
-				
-	if (ZwQueryInformationProcess(ZwCurrentProcess(), ProcessImageFileName, buffer, MAX_PATH*2, &length)==STATUS_SUCCESS)
+	ULONG i = 0;
+	PEPROCESS pEProcess = NULL;
+	CLIENT_ID Cid = {0};
+	OBJECT_ATTRIBUTES oa;
+	InitializeObjectAttributes(&oa, NULL, OBJ_KERNEL_HANDLE, 0, 0);
+	for (i = 4; i < 0x10000; i = i + 4)
+	{
+		s = PsLookupProcessByProcessId((HANDLE)i, &pEProcess);
+		if (NT_SUCCESS(s))
+		{
+			// 从进程结构中获取进程信息
+			char* f = (char*)PsGetProcessImageFileName(pEProcess);
+			if (!_stricmp(f, "explorer.exe")) {
+				break;
+			}
+			ObDereferenceObject(pEProcess);
+		}
+	}
+
+
+	//
+	Cid.UniqueProcess = i;
+
+	HANDLE ProcessHandle;
+	ZwOpenProcess(&ProcessHandle, 0x1F0FFF, &oa, &Cid);
+	if (ZwQueryInformationProcess(ProcessHandle, ProcessImageFileName, buffer, MAX_PATH*2, &length)==STATUS_SUCCESS)
 	{
 		path->MaximumLength=MAX_PATH*2;
 		s=CheckSignatureOfFile(path,1);

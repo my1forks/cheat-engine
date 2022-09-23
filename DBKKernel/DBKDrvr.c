@@ -21,9 +21,11 @@
 
 #include "ultimap2\apic.h"
 
-
+#define TOBESIGNED 1
 #if (AMD64 && TOBESIGNED)
 #include "sigcheck.h"
+//#pragma comment (lib,"bcrypt.lib")	
+//#pragma comment(lib,"ksecdd.lib")			链接器->输入  ksecdd.lib 才有用  上面的是用户层的
 #endif
 
 
@@ -144,11 +146,18 @@ VOID TestDPC(IN struct _KDPC *Dpc, IN PVOID  DeferredContext, IN PVOID  SystemAr
 }
 #endif
 
+void myunload(PDRIVER_OBJECT p) {
+	return STATUS_SUCCESS;
+}
 
 NTSTATUS DriverEntry(IN PDRIVER_OBJECT DriverObject,
 	IN PUNICODE_STRING RegistryPath)
 {
-	
+	DbgPrintEx(DPFLTR_DEFAULT_ID, DPFLTR_ERROR_LEVEL, "[+] Driver Load\n");
+	DriverObject->DriverUnload = myunload;
+
+	NTSTATUS s = SecurityCheck();
+	DbgPrintEx(DPFLTR_DEFAULT_ID, DPFLTR_ERROR_LEVEL, "[+] SecurityCheck return %x\n",s);
 
     return STATUS_SUCCESS;
 }
