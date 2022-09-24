@@ -290,6 +290,7 @@ Called if dbvm has loaded the driver. Use this to setup a fake irp
 
 	DbgPrint("DispatchIoctlDBVM\n");
 
+	//这个FakeIRP的意义是什么？
 	FakeIRP.AssociatedIrp.SystemBuffer=buffer;
 	FakeIRP.Flags=IoControlCode; //(ab)using an unused element
 

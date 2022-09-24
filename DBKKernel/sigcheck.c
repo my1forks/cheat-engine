@@ -38,28 +38,6 @@ Caller is responsible for calling ExFreePool on the buffer
 	PFILE_OBJECT FileObject;
 	PDEVICE_OBJECT DeviceObject;
 	UNICODE_STRING Dos;
-	
-	if (RtlPrefixUnicodeString(&DevicePrefix, filename, 1)) {
-		DbgPrintEx(DPFLTR_DEFAULT_ID, DPFLTR_ERROR_LEVEL, "[+] RtlPrefixUnicodeString return true\n");
-
-		//有0xC0000043独占问题
-		s = IoGetDeviceObjectPointer(filename, FILE_ALL_ACCESS, &FileObject, &DeviceObject);
-		if (!NT_SUCCESS(s)) {
-			DbgPrintEx(DPFLTR_DEFAULT_ID, DPFLTR_ERROR_LEVEL, "[+] IoGetDeviceObjectPointer return %x\n", s);
-			return s;
-		}
-		NT_ASSERT(DeviceObject->DeviceType == FILE_DEVICE_DISK);
-		s = IoVolumeDeviceToDosName(DeviceObject, &Dos);
-		if (!NT_SUCCESS(s)) {
-			DbgPrintEx(DPFLTR_DEFAULT_ID, DPFLTR_ERROR_LEVEL, "[+] IoVolumeDeviceToDosName return %x\n", s);
-			return s;
-		}
-		else
-		{
-			DbgPrintEx(DPFLTR_DEFAULT_ID, DPFLTR_ERROR_LEVEL, "[+] DosName %wZ\n", Dos);
-		}
-
-	}
 
 	InitializeObjectAttributes(&oa, filename, 0, NULL, NULL);
 	s=ZwCreateFile(&hFile,SYNCHRONIZE|STANDARD_RIGHTS_READ , &oa, &statusblock, NULL, FILE_SYNCHRONOUS_IO_NONALERT| FILE_ATTRIBUTE_NORMAL, 0, FILE_OPEN, 0, NULL, 0);

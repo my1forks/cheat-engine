@@ -155,7 +155,7 @@ calls a specified dpcfunction for each cpu on the system
 			KeInitializeDpc(&dpc[dpcnr], dpcfunction, DeferredContext);
 			KeSetTargetProcessorDpc (&dpc[dpcnr], cpunr);
 			KeInsertQueueDpc(&dpc[dpcnr], SystemArgument1, SystemArgument2);
-			KeFlushQueuedDpcs();
+			KeFlushQueuedDpcs();		//把所有核心当前排队的DPC都执行完才返回
 			dpcnr++;
 		}
 

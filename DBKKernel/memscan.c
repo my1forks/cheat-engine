@@ -136,7 +136,7 @@ void VirtualAddressToPageEntries64(QWORD address, PPDPTE_PAE *pml4entry, PPDPTE_
 BOOLEAN IsAddressSafe(UINT_PTR StartAddress)
 {
 	#ifdef AMD64
-	//cannonical check. Bits 48 to 63 must match bit 47
+	//cannonical check. Bits 48 to 63 must match bit 47			规范地址校验
 	UINT_PTR toppart=(StartAddress >> 47);
 	if (toppart & 1)
 	{
@@ -310,7 +310,7 @@ BOOLEAN WriteProcessMemory(DWORD PID,PEPROCESS PEProcess,PVOID Address,DWORD Siz
 					if (loadedbydbvm)
 						vmx_disable_dataPageFaults();
 
-					if (KernelWritesIgnoreWP)
+					if (KernelWritesIgnoreWP)	//关闭写保护
 					{
 						DbgPrint("Disabling CR0.WP");
 						setCR0(getCR0() & (~(1 << 16))); //disable the WP bit					

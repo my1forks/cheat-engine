@@ -131,6 +131,7 @@ void* functionlist[1];
 char  paramsizes[1];
 int registered=0;
 
+#define DEBUG1
 #ifdef DEBUG1
 VOID TestPassive(UINT_PTR param)
 {
@@ -142,7 +143,7 @@ VOID TestDPC(IN struct _KDPC *Dpc, IN PVOID  DeferredContext, IN PVOID  SystemAr
 {
 	EFLAGS e=getEflags();
 	
-    DbgPrint("Defered cpu call for cpu %d (Dpc=%p  IF=%d IRQL=%d)\n", KeGetCurrentProcessorNumber(), Dpc, e.IF, KeGetCurrentIrql());
+	DbgPrintEx(DPFLTR_DEFAULT_ID, DPFLTR_ERROR_LEVEL,"Defered cpu call for cpu %d (Dpc=%p  IF=%d IRQL=%d)\n", KeGetCurrentProcessorNumber(), Dpc, e.IF, KeGetCurrentIrql());
 }
 #endif
 
@@ -150,19 +151,49 @@ void myunload(PDRIVER_OBJECT p) {
 	return STATUS_SUCCESS;
 }
 
+ULONG_PTR ipi_worker(ULONG_PTR arg) {
+	EFLAGS e = getEflags();
+
+	DbgPrintEx(DPFLTR_DEFAULT_ID, DPFLTR_ERROR_LEVEL, "Defered cpu call for cpu %d (  IF=%d IRQL=%d)\n", KeGetCurrentProcessorNumber(), e.IF, KeGetCurrentIrql());
+}
+
+void f(ULONG_PTR param) {
+	EFLAGS e = getEflags();
+
+	DbgPrintEx(DPFLTR_DEFAULT_ID, DPFLTR_ERROR_LEVEL, "Defered cpu call for cpu %d (  IF=%d IRQL=%d)\n", KeGetCurrentProcessorNumber(), e.IF, KeGetCurrentIrql());
+}
+
 NTSTATUS DriverEntry(IN PDRIVER_OBJECT DriverObject,
 	IN PUNICODE_STRING RegistryPath)
 {
+#if 0		//测试签名相关
 	DbgPrintEx(DPFLTR_DEFAULT_ID, DPFLTR_ERROR_LEVEL, "[+] Driver Load\n");
 	DriverObject->DriverUnload = myunload;
 
 	NTSTATUS s = SecurityCheck();
 	DbgPrintEx(DPFLTR_DEFAULT_ID, DPFLTR_ERROR_LEVEL, "[+] SecurityCheck return %x\n",s);
+#endif
+
+#if 1
+	//同步
+	DbgPrintEx(DPFLTR_DEFAULT_ID, DPFLTR_ERROR_LEVEL, "dpc同步...\n");
+	forEachCpu(TestDPC,NULL,NULL,NULL,NULL);
+	//异步
+	DbgPrintEx(DPFLTR_DEFAULT_ID, DPFLTR_ERROR_LEVEL, "dpc异步...\n");
+	forEachCpuAsync(TestDPC, NULL, NULL, NULL, NULL);
+	//passive 同步
+	DbgPrintEx(DPFLTR_DEFAULT_ID, DPFLTR_ERROR_LEVEL, "passive 同步...\n");
+	forEachCpuPassive(f, 0);
+
+	//ipi 
+	DbgPrintEx(DPFLTR_DEFAULT_ID, DPFLTR_ERROR_LEVEL, "ipi 同步...\n");
+	KeIpiGenericCall(ipi_worker, 0);
+#endif
 
     return STATUS_SUCCESS;
 }
 
-
+//IRP_MJ_CREATE
 NTSTATUS DispatchCreate(IN PDEVICE_OBJECT DeviceObject,
                        IN PIRP Irp)
 {
@@ -180,7 +211,7 @@ NTSTATUS DispatchCreate(IN PDEVICE_OBJECT DeviceObject,
 	{		
 		Irp->IoStatus.Status = STATUS_SUCCESS;
 #ifdef AMD64
-#ifdef TOBESIGNED
+#ifdef TOBESIGNED	//校验调用进程数字签名
 		{
 			NTSTATUS s=SecurityCheck();	
 			Irp->IoStatus.Status = s; 		

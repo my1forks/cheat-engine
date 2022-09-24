@@ -1,12 +1,10 @@
 ﻿  Building 'DBKKernel' with toolset 'WindowsKernelModeDriver10.0' and the 'Desktop' target platform.
   Stamping x64\Debug\DBK64.inf
-  Stamping [Version] section with DriverVer=09/22/2022,21.43.57.839
+  Stamping [Version] section with DriverVer=09/23/2022,19.10.32.282
 D:\vs-code\cheat-engine\DBKKernel\DBK64.inf(5-5): warning 1324: [Version] section should specify PnpLockdown=1.
-  sigcheck.c
-D:\vs-code\cheat-engine\DBKKernel\sigcheck.c(73,12): warning C4996: 'ExAllocatePool': 被声明为已否决
-D:\vs-code\cheat-engine\DBKKernel\sigcheck.c(120,25): warning C4996: 'ExAllocatePool': 被声明为已否决
-D:\vs-code\cheat-engine\DBKKernel\sigcheck.c(134,29): warning C4996: 'ExAllocatePool': 被声明为已否决
-D:\vs-code\cheat-engine\DBKKernel\sigcheck.c(369,23): warning C4047: “=”:“HANDLE”与“ULONG”的间接级别不同
+  DBKDrvr.c
+D:\vs-code\cheat-engine\DBKKernel\DBKDrvr.c(151,23): warning C4098: “myunload”:“void”函数返回值
+D:\vs-code\cheat-engine\DBKKernel\DBKDrvr.c(158): warning C4716: “ipi_worker”: 必须返回一个值
   DBKKernel.vcxproj -> D:\vs-code\cheat-engine\Cheat Engine\bin\DBK64.sys
   Done Adding Additional Store
   Successfully signed: D:\vs-code\cheat-engine\Cheat Engine\bin\DBK64.sys
